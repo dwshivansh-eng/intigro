@@ -261,8 +261,8 @@ This project is licensed under the MIT License.
 ## 📞 Support
 
 For support or questions:
-- **Email**: info@intigro.com
-- **Phone**: +1 (555) 123-4567
+- **Email**:intigro.team@gmail.com
+- **Phone**: +91 9076796719
 - **Website**: [intigro.com](https://intigro.com)
 
 ## 🎉 Acknowledgments
@@ -275,3 +275,4 @@ For support or questions:
 ---
 
 **Intigro** - Empowering professionals with world-class automation testing training.
+
