@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intigro - Master Automation Testing Training</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #f59e0b;
+            --accent-color: #10b981;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-light: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-dark: #111827;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar-brand {
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .brand-text {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+
+        .brand-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar-menu {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Custom button colors for hero section */
+        .hero .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .hero .btn-primary:hover {
+            background-color: #d97706;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero .btn-outline {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .hero .btn-outline:hover {
+            background-color: white;
+            color: var(--primary-color);
+        }
+
+        .btn-large {
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.9) 0%, rgba(29, 78, 216, 0.8) 100%), 
+                        url('https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80') center/cover no-repeat;
+            padding: 6rem 0 4rem;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .highlight {
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        /* Hero Announcement Section */
+        .hero-announcement {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-announcement h3 {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .hero-announcement p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .what-youll-learn {
+            margin-top: 1.5rem;
+        }
+
+        .what-youll-learn h4 {
+            color: var(--secondary-color);
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .what-youll-learn ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .what-youll-learn li {
+            color: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .what-youll-learn li::before {
+            content: '✓';
+            color: var(--secondary-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            margin-top: 0.25rem;
+        }
+
+        .hero-image {
+            margin-top: -2rem;
+            align-self: start;
+        }
+
+        .code-window {
+            background: var(--bg-dark);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .window-header {
+            background: #374151;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .window-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-red, .btn-yellow, .btn-green {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .btn-red { background: #ef4444; }
+        .btn-yellow { background: #f59e0b; }
+        .btn-green { background: #10b981; }
+
+        .window-title {
+            color: #d1d5db;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .window-content {
+            padding: 2rem;
+        }
+
+        .window-content pre {
+            margin: 0;
+            color: #d1d5db;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        .window-content code {
+            color: #60a5fa;
+        }
+
+        /* Sections */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Features */
+        .features-section {
+            background: var(--bg-primary);
+        }
+
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            border-radius: 1rem;
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Course Overview */
+        .course-overview {
+            background: var(--bg-secondary);
+        }
+
+        .course-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .course-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary-color);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item.left {
+            text-align: right;
+            padding-right: 3rem;
+        }
+
+        .timeline-item.right {
+            text-align: left;
+            padding-left: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 1rem;
+            width: 16px;
+            height: 16px;
+            background: var(--primary-color);
+            border: 4px solid var(--bg-primary);
+            border-radius: 50%;
+        }
+
+        .timeline-item.left::before {
+            right: -2.5rem;
+        }
+
+        .timeline-item.right::before {
+            left: -2.5rem;
+        }
+
+        .timeline-content {
+            background: var(--bg-primary);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .timeline-duration {
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .timeline-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .topic-tag {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+            border: 1px solid var(--border-color);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-content p {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-buttons .btn-outline {
+            color: white;
+            border-color: white;
+        }
+
+        .cta-buttons .btn-outline:hover {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: #d1d5db;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            max-width: 300px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: #374151;
+            color: #d1d5db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .footer-section h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #d1d5db;
+            font-size: 0.875rem;
+        }
+
+        .contact-item i {
+            color: var(--primary-color);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .course-timeline::before {
+                left: 2rem;
+            }
+
+            .timeline-item.left,
+            .timeline-item.right {
+                text-align: left;
+                padding-left: 4rem;
+                padding-right: 0;
+            }
+
+            .timeline-item.left::before,
+            .timeline-item.right::before {
+                left: -2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .footer-brand p {
+                max-width: none;
+                margin: 0 auto 2rem;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .navbar-menu {
+                display: none;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--bg-primary);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: var(--shadow-xl);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .close {
+            color: var(--text-secondary);
+            float: right;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            right: 1.5rem;
+            top: 1rem;
+        }
+
+        .close:hover {
+            color: var(--text-primary);
+        }
+
+        /* Auth Form Styles */
+        .auth-form h2 {
+            color: var(--text-primary);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .auth-form p {
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn-full {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .divider span {
+            background: var(--bg-primary);
+            padding: 0 1rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .google-btn {
+            border-color: #db4437;
+            color: #db4437;
+        }
+
+        .google-btn:hover {
+            background: #db4437;
+            color: white;
+        }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .auth-switch a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-switch a:hover {
+            text-decoration: underline;
+        }
+
+        /* Dashboard Modal */
+        .dashboard-content {
+            max-width: 800px;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Success/Error Messages */
+        .message {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .message.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+
+        .message.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="navbar-brand">
+                <span class="brand-text">Intigro</span>
+                <span class="brand-subtitle">Automation Excellence</span>
+            </a>
+            <div class="navbar-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About Us</a>
+                <a href="#content" class="nav-link">Learning Content</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                                 <a href="#login" class="btn btn-primary" onclick="showLoginModal()">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1 class="hero-title">
+                    Master <span class="highlight">Selenium</span> & <span class="highlight">C#</span> Automation
+                </h1>
+                <p class="hero-subtitle">
+                    Transform your career with our comprehensive 8-week training program designed by industry experts. 
+                    Learn real-world automation testing skills that employers actually need.
+                </p>
+                
+                <div class="hero-announcement">
+                    <h3>🚀 New Program Announcement!</h3>
+                    <p>Are you a QA professional ready to advance your career, an aspiring SDET, or part of a team looking to build robust automation? We're thrilled to announce our comprehensive 2-month training program on Automation Testing using Selenium WebDriver with C#!</p>
+                    <p>Designed by industry experts, this program empowers you with the practical, real-world skills needed to excel in the .NET ecosystem.</p>
+                    <div class="what-youll-learn">
+                        <h4>What You'll Master:</h4>
+                        <ul>
+                            <li>Selenium WebDriver fundamentals</li>
+                            <li>C# programming for automation</li>
+                            <li>Advanced automation frameworks</li>
+                            <li>Real-world project implementation</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#content" class="btn btn-primary btn-large">
+                        Start Learning
+                    </a>
+                    <a href="#about" class="btn btn-outline btn-large">
+                        Learn More
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Students Trained</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">95%</span>
+                        <span class="stat-label">Success Rate</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">8</span>
+                        <span class="stat-label">Weeks Program</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image fade-in">
+                <div class="code-window">
+                    <div class="window-header">
+                        <div class="window-buttons">
+                            <span class="btn-red"></span>
+                            <span class="btn-yellow"></span>
+                            <span class="btn-green"></span>
+                        </div>
+                        <span class="window-title">Automation Test</span>
+                    </div>
+                    <div class="window-content">
+                        <pre><code>[Test]
+public void LoginTest()
+{
+    var loginPage = new LoginPage(driver);
+    loginPage.EnterCredentials("user", "pass");
+    loginPage.ClickLogin();
+    
+    Assert.IsTrue(dashboardPage.IsDisplayed());
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="about" class="section features-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose Intigro?</h2>
+            <p class="section-subtitle">
+                We provide the most comprehensive and industry-relevant automation testing training
+            </p>
+            
+            <div class="grid grid-4">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="feature-title">Industry-Driven Curriculum</h3>
+                    <p class="feature-description">Learn the latest automation testing techniques used by top companies worldwide.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title">Expert Instructors</h3>
+                    <p class="feature-description">Learn from industry professionals with 10+ years of experience in automation testing.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3 class="feature-title">Certification</h3>
+                    <p class="feature-description">Earn a recognized certificate upon completion of our comprehensive training program.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="feature-title">Hands-on Projects</h3>
+                    <p class="feature-description">Work on real-world projects to build a strong portfolio and practical skills.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Overview Section -->
+    <section id="content" class="section course-overview">
+        <div class="container">
+            <h2 class="section-title">Course Overview</h2>
+            <p class="section-subtitle">
+                Our 8-week intensive program covers everything you need to become an automation testing expert
+            </p>
+
+            <div class="course-timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3 class="timeline-title">Selenium WebDriver Fundamentals</h3>
+                            <span class="timeline-duration">2 weeks</span>
+                        </div>
+                        <div class="timeline-topics">
+                            <span class="topic-tag">Web Elements</span>
+                            <span class="topic-tag">Locators</span>
+                            <span class="topic-tag">Actions</span>
+                            <span class="topic-tag">Waits</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3 class="timeline-title">C# Programming for Automation</h3>
+                            <span class="timeline-duration">3 weeks</span>
+                        </div>
+                        <div class="timeline-topics">
+                            <span class="topic-tag">OOP Concepts</span>
+                            <span class="topic-tag">Collections</span>
+                            <span class="topic-tag">Exception Handling</span>
+                            <span class="topic-tag">File I/O</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3 class="timeline-title">Advanced Automation Framework</h3>
+                            <span class="timeline-duration">2 weeks</span>
+                        </div>
+                        <div class="timeline-topics">
+                            <span class="topic-tag">Page Object Model</span>
+                            <span class="topic-tag">Data-Driven Testing</span>
+                            <span class="topic-tag">Reporting</span>
+                            <span class="topic-tag">CI/CD Integration</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3 class="timeline-title">Real-World Projects</h3>
+                            <span class="timeline-duration">1 week</span>
+                        </div>
+                        <div class="timeline-topics">
+                            <span class="topic-tag">E-commerce Testing</span>
+                            <span class="topic-tag">API Testing</span>
+                            <span class="topic-tag">Performance Testing</span>
+                            <span class="topic-tag">Mobile Testing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section">
+        <div class="container">
+            <div class="cta-content fade-in">
+                <h2>Ready to Start Your Automation Journey?</h2>
+                <p>Join hundreds of successful professionals who transformed their careers with Intigro</p>
+                <div class="cta-buttons">
+                    <a href="#login" class="btn btn-primary btn-large">
+                        Get Started Today
+                    </a>
+                    <a href="#contact" class="btn btn-outline btn-large">
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <h3>Intigro</h3>
+                        <p>Empowering professionals with world-class automation testing training. Transform your career with industry expert-led programs.</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://facebook.com/intigro" target="_blank" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://instagram.com/intigro" target="_blank" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://linkedin.com/company/intigro" target="_blank" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://twitter.com/intigro" target="_blank" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#content">Learning Content</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Training Programs</h4>
+                    <ul class="footer-links">
+                        <li><a href="#content">Selenium WebDriver</a></li>
+                        <li><a href="#content">C# Programming</a></li>
+                        <li><a href="#content">Automation Framework</a></li>
+                        <li><a href="#content">Real-World Projects</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>intigro.team@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+91 9076796719</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Hyderabad,India</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Intigro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login/Register Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAuthModal()">&times;</span>
+            
+            <!-- Login Form -->
+            <div id="loginForm" class="auth-form">
+                <h2>Welcome Back</h2>
+                <p>Sign in to continue your learning journey</p>
+                
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+                </form>
+                
+                <div class="divider">
+                    <span>or</span>
+                </div>
+                
+                <button onclick="handleGoogleLogin()" class="btn btn-outline btn-full google-btn">
+                    <i class="fab fa-google"></i> Continue with Google
+                </button>
+                
+                <p class="auth-switch">
+                    Don't have an account? <a href="#" onclick="showRegisterForm()">Sign up</a>
+                </p>
+            </div>
+            
+            <!-- Register Form -->
+            <div id="registerForm" class="auth-form" style="display: none;">
+                <h2>Join Intigro</h2>
+                <p>Create your account to start learning</p>
+                
+                <form onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label for="regName">Full Name</label>
+                        <input type="text" id="regName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="regEmail">Email</label>
+                        <input type="email" id="regEmail" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="regPhone">Phone (Optional)</label>
+                        <input type="tel" id="regPhone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="regPassword">Password</label>
+                        <input type="password" id="regPassword" required minlength="6">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                </form>
+                
+                <p class="auth-switch">
+                    Already have an account? <a href="#" onclick="showLoginForm()">Sign in</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Dashboard Modal -->
+    <div id="dashboardModal" class="modal">
+        <div class="modal-content dashboard-content">
+            <span class="close" onclick="closeDashboardModal()">&times;</span>
+            <div id="dashboardContent">
+                <!-- Dashboard content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation to elements when they come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature cards and timeline items
+        document.querySelectorAll('.feature-card, .timeline-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Authentication state
+        let currentUser = null;
+        let authToken = localStorage.getItem('authToken');
+
+        // Check if user is already logged in
+        if (authToken) {
+            checkAuthStatus();
+        }
+
+        // Modal functions
+        function showLoginModal() {
+            document.getElementById('authModal').style.display = 'block';
+            showLoginForm();
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').style.display = 'none';
+            clearMessages();
+        }
+
+        function showLoginForm() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+        }
+
+        function showRegisterForm() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+        }
+
+        function closeDashboardModal() {
+            document.getElementById('dashboardModal').style.display = 'none';
+        }
+
+        // Clear any existing messages
+        function clearMessages() {
+            const messages = document.querySelectorAll('.message');
+            messages.forEach(msg => msg.remove());
+        }
+
+        // Show success/error messages
+        function showMessage(message, type = 'success') {
+            clearMessages();
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.textContent = message;
+            
+            const modal = document.querySelector('.modal-content');
+            modal.insertBefore(messageDiv, modal.firstChild);
+        }
+
+        // Handle user registration
+        async function handleRegister(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const phone = document.getElementById('regPhone').value;
+            const password = document.getElementById('regPassword').value;
+
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, email, phone, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showMessage('Account created successfully! Please sign in.', 'success');
+                    showLoginForm();
+                    // Clear form
+                    event.target.reset();
+                } else {
+                    showMessage(data.error || 'Registration failed', 'error');
+                }
+            } catch (error) {
+                showMessage('Network error. Please try again.', 'error');
+            }
+        }
+
+        // Handle user login
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Store token and user data
+                    authToken = data.token;
+                    currentUser = data.user;
+                    localStorage.setItem('authToken', authToken);
+                    localStorage.setItem('userData', JSON.stringify(currentUser));
+                    
+                    // Update UI
+                    updateAuthUI();
+                    closeAuthModal();
+                    showMessage('Login successful!', 'success');
+                    
+                    // Show dashboard
+                    setTimeout(() => {
+                        showDashboard();
+                    }, 1000);
+                } else {
+                    showMessage(data.error || 'Login failed', 'error');
+                }
+            } catch (error) {
+                showMessage('Network error. Please try again.', 'error');
+            }
+        }
+
+        // Handle Google login (simulated)
+        async function handleGoogleLogin() {
+            // Simulate Google OAuth
+            const mockGoogleUser = {
+                email: 'demo@google.com',
+                name: 'Demo User',
+                googleId: 'google_' + Date.now()
+            };
+
+            try {
+                const response = await fetch('/api/google-login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(mockGoogleUser)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    authToken = data.token;
+                    currentUser = data.user;
+                    localStorage.setItem('authToken', authToken);
+                    localStorage.setItem('userData', JSON.stringify(currentUser));
+                    
+                    updateAuthUI();
+                    closeAuthModal();
+                    showMessage('Google login successful!', 'success');
+                    
+                    setTimeout(() => {
+                        showDashboard();
+                    }, 1000);
+                } else {
+                    showMessage(data.error || 'Google login failed', 'error');
+                }
+            } catch (error) {
+                showMessage('Network error. Please try again.', 'error');
+            }
+        }
+
+        // Check authentication status
+        async function checkAuthStatus() {
+            try {
+                const response = await fetch('/api/profile', {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (response.ok) {
+                    const userData = await response.json();
+                    currentUser = userData;
+                    updateAuthUI();
+                } else {
+                    // Token is invalid, clear it
+                    logout();
+                }
+            } catch (error) {
+                logout();
+            }
+        }
+
+        // Update UI based on authentication status
+        function updateAuthUI() {
+            const loginBtn = document.querySelector('.navbar-menu .btn-primary');
+            if (currentUser) {
+                loginBtn.textContent = 'Dashboard';
+                loginBtn.onclick = showDashboard;
+            } else {
+                loginBtn.textContent = 'Login';
+                loginBtn.onclick = showLoginModal;
+            }
+        }
+
+        // Show user dashboard
+        async function showDashboard() {
+            try {
+                const response = await fetch('/api/profile', {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (response.ok) {
+                    const userData = await response.json();
+                    displayDashboard(userData);
+                    document.getElementById('dashboardModal').style.display = 'block';
+                }
+            } catch (error) {
+                showMessage('Failed to load dashboard', 'error');
+            }
+        }
+
+        // Display dashboard content
+        function displayDashboard(userData) {
+            const dashboardContent = document.getElementById('dashboardContent');
+            
+            dashboardContent.innerHTML = `
+                <div class="dashboard-header">
+                    <h2>Welcome back, ${userData.name}!</h2>
+                    <p>Track your progress and continue learning</p>
+                </div>
+                
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Courses Enrolled</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">0%</div>
+                        <div class="stat-label">Overall Progress</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Lessons Completed</div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center;">
+                    <button onclick="logout()" class="btn btn-outline">Logout</button>
+                </div>
+            `;
+        }
+
+        // Logout function
+        function logout() {
+            authToken = null;
+            currentUser = null;
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userData');
+            updateAuthUI();
+            closeDashboardModal();
+            showMessage('Logged out successfully', 'success');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const authModal = document.getElementById('authModal');
+            const dashboardModal = document.getElementById('dashboardModal');
+            
+            if (event.target === authModal) {
+                closeAuthModal();
+            }
+            if (event.target === dashboardModal) {
+                closeDashboardModal();
+            }
+        }
+
+        // Initialize UI
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAuthUI();
+        });
+    </script>
+</body>
+</html>
